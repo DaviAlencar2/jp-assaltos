@@ -62,6 +62,7 @@ def signup(request):
     
     return render(request, 'accounts/signup.html', {'form': form, 'in_login_or_signup': True})
 
+
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Logout realizado com sucesso!')
