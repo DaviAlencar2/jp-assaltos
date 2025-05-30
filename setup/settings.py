@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'heatmap.apps.HeatmapConfig',
     'accounts.apps.AccountsConfig',
+    'stats',
 ]
 
 MIDDLEWARE = [

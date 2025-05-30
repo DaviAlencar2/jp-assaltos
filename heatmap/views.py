@@ -20,10 +20,6 @@ def home(request):
     return render(request, "heatmap/home.html", {'years': years})
 
 
-def stats(request):
-    return render(request, "heatmap/stats.html")
-
-
 def add(request):
     if not is_staff(request.user):
         messages.warning(request, 'Por enquanto, apenas administradores podem adicionar dados.')

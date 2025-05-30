@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('heatmap.urls')),
     path('accounts/', include('accounts.urls')),
+    path('stats/', include('stats.urls'))
 ]
