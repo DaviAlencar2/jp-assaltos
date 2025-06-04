@@ -1,0 +1,32 @@
+<div class="position-sticky rounded-3">
+    <div class="p-3 mb-3 text-center">
+        <h4>JP Assaltos</h4>
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+                <i class="bi bi-house-door me-2"></i>Home
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/add/' %}active{% endif %}" href="{% url 'add' %}">
+                <i class="bi bi-plus-circle me-2"></i>Adicionar Assalto
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/stats/' %}active{% endif %}" href="{% url 'stats' %}">
+                <i class="bi bi-graph-up me-2"></i>Estatísticas
+            </a>
+        </li>
+        <li class="nav-item mt-3">
+            {% if not user.is_authenticated %}
+            <div class="d-flex flex-column gap-2">
+                <a class="btn btn-primary w-100" href="{% url 'login' %}">Faça Login</a>
+                <a class="btn btn-primary w-100" href="{% url 'signup' %}">Cadastre-se</a>
+            </div>
+            {% else %}
+            <a class="btn btn-primary w-100" href="{% url 'logout' %}">Sair</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
