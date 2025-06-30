@@ -2,10 +2,10 @@
 {% block title %}Cadastre-se{% endblock %}
 
 {% block content %}
-<div class="container mt-5" style="max-width: 500px;">
-    <form action="{% url 'signup' %}" method="POST" class="bg-dark bg-opacity-25 p-4 rounded">
+<div class="container d-flex justify-content-center align-items-center" style="max-width: 600px; min-height: 90vh;">
+    <form action="{% url 'signup' %}" method="POST" class="bg-dark bg-opacity-25 p-4 rounded w-100">
         {% csrf_token %}
-        
+         <h3 class="text-center mb-4">Cadastre-se</h3>
         {% for field in form.visible_fields %}
             <div class="mb-3">
                 <label for="{{ field.id_for_label }}" class="">{{ field.label }}</label>
