@@ -17,6 +17,7 @@ def is_staff(user):
 def home(request):
     years = Robbery.objects.dates('date', 'year')
     years = [year.year for year in years]
+    years.sort(reverse=True) 
     return render(request, "heatmap/home.html", {'years': years})
 
 
@@ -26,6 +27,7 @@ def add(request):
         return redirect('home')
     
     elif request.method == "POST":
+        messages.info(request, 'A API de geocodificação pode cometer erros de marcação leves, o mais importante é que o bairro esteja correto.')
         form = RobberyForm(request.POST)
         if form.is_valid():
             date = form.cleaned_data['date']
