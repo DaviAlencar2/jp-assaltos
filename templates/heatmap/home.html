@@ -4,9 +4,12 @@
  
 {% block content %}
 <div class="dropdown-center text-center mb-3 mt-4">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="yearDropdown"></button>
+     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" 
+            data-bs-dropdown-config='{"popperConfig":{"strategy":"fixed"}}' 
+            aria-expanded="false" id="yearDropdown">
+    </button>
     
-    <ul class="dropdown-menu dropdown-menu-dark text-center">
+    <ul class="dropdown-menu dropdown-menu-dark text-center position-absolute" style="z-index: 1030;">
       {% for year in years %}
         <li><a class="dropdown-item {% if year == '2025'%}active{% endif %}" href="#" onclick="updateMap('{{ year }}')">{{ year }}</a></li>
       {% endfor %}
@@ -33,7 +36,7 @@
   }
 </style>
 
-<div id="map" class="rounded mx-auto"></div>
+<div id="map" class="rounded mx-auto mb-5"></div>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
