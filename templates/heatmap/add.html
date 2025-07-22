@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container w-50 mt-3 mb-3 mx-auto">
+<div class="container w-50 mt-5 mb-3 mx-auto">
     <form action="{% url 'add' %}" method="POST">
         {% csrf_token %}
         {% for field in form.visible_fields %}

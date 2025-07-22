@@ -1,25 +1,56 @@
 <nav class="navbar navbar-expand-sm bg-dark " data-bs-theme="dark">
     <div class="container-fluid">
+        <!-- Brand/Logo para mobile -->
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+            JP Assaltos
+        </a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse " id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto d-flex" style="--bs-scroll-height: 200px;">
+        
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto d-flex align-items-center" style="--bs-scroll-height: 200px;">
     
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+                    <i class="bi bi-map me-1"></i>Mapa
+                </a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'add' %}">Adicionar Assalto</a>
+                <a class="nav-link {% if request.path == '/add/' %}active{% endif %}" href="{% url 'add' %}">
+                    <i class="bi bi-plus-circle me-1"></i>Reportar
+                </a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" aria-disabled="true" href="{% url 'stats' %}">Estatísticas</a>
+                <a class="nav-link {% if request.path == '/stats/' %}active{% endif %}" href="{% url 'stats' %}">
+                    <i class="bi bi-bar-chart me-1"></i>Estatísticas
+                </a>
               </li>
 
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link {% if request.path == '/accounts/profile/' %}active{% endif %}" href="{% url 'profile' %}">
+                    <i class="bi bi-person-circle me-1"></i>Perfil
+                </a>
+              </li>
+              {% endif %}
+
               {% if not in_login_or_signup %}
-              <li class="nav-item "> {% include 'partials/_userBtn.html' %}</li>
+              <li class="nav-item"> 
+                {% if not user.is_authenticated %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'login' %}">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Entrar
+                    </a>
+                {% else %}
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %}">
+                        <i class="bi bi-box-arrow-right me-1"></i>Sair
+                    </a>
+                {% endif %}
+              </li>
               {% endif %}
           </ul>
         </div>

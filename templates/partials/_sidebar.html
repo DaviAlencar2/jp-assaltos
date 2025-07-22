@@ -1,39 +1,59 @@
-<div class="position-sticky rounded-3">
-    <div class="p-3 mb-3 text-center">
-        <h4>JP Assaltos</h4>
+<div class="position-sticky">
+    <div class="p-3 mb-4 text-center border-bottom border-secondary">
+        <i class="bi bi-geo-alt-fill text-primary display-6 mb-2"></i>
+        <h4 class="mb-0">JP Assaltos</h4>
+        <small class="text-muted">Mapa de Calor e pontos</small>
     </div>
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
-                <i class="bi bi-house-door me-2"></i>Home
+    
+    <ul class="nav flex-column px-3">
+        <li class="nav-item mb-2">
+            <a class="nav-link d-flex align-items-center py-3 px-3 rounded {% if request.path == '/' %}text-primary{% else %}text-light{% endif %}" href="{% url 'home' %}">
+                <i class="bi bi-map me-3 fs-5"></i>
+                <span>Mapa</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == '/add/' %}active{% endif %}" href="{% url 'add' %}">
-                <i class="bi bi-plus-circle me-2"></i>Assalto
+        
+        <li class="nav-item mb-2">
+            <a class="nav-link d-flex align-items-center py-3 px-3 rounded {% if request.path == '/add/' %}text-primary{% else %}text-light{% endif %}" href="{% url 'add' %}">
+                <i class="bi bi-plus-circle me-3 fs-5"></i>
+                <span>Reportar</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == '/stats/' %}active{% endif %}" href="{% url 'stats' %}">
-                <i class="bi bi-graph-up me-2"></i>Estatísticas
+        
+        <li class="nav-item mb-2">
+            <a class="nav-link d-flex align-items-center py-3 px-3 rounded {% if request.path == '/stats/' %}text-primary{% else %}text-light{% endif %}" href="{% url 'stats' %}">
+                <i class="bi bi-bar-chart me-3 fs-5"></i>
+                <span>Estatísticas</span>
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == 'accounts/profile/' %}active{% endif %}" href="{% url 'profile' %}">
-                <i class="bi bi-person-circle me-2"></i>Meu Perfil
+        {% if user.is_authenticated %}
+        <li class="nav-item mb-2">
+            <a class="nav-link d-flex align-items-center py-3 px-3 rounded {% if request.path == '/accounts/profile/' %}text-primary{% else %}text-light{% endif %}" href="{% url 'profile' %}">
+                <i class="bi bi-person-circle me-3 fs-5"></i>
+                <span>Perfil</span>
             </a>
         </li>
-
-        <li class="nav-item mt-3">
-            {% if not user.is_authenticated %}
-            <div class="d-flex flex-column gap-2">
-                <a class="btn btn-primary w-100" href="{% url 'login' %}">Faça Login</a>
-                <a class="btn btn-primary w-100" href="{% url 'signup' %}">Cadastre-se</a>
-            </div>
-            {% else %}
-            <a class="btn btn-primary w-100" href="{% url 'logout' %}">Sair</a>
-            {% endif %}
-        </li>
+        {% endif %}
     </ul>
+
+    <div class="px-3 mt-4">
+        {% if not user.is_authenticated %}
+        <div class="d-grid gap-2">
+            <a class="btn btn-primary btn-lg" href="{% url 'login' %}">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+            </a>
+            <a class="btn btn-outline-primary" href="{% url 'signup' %}">
+                <i class="bi bi-person-plus me-2"></i>Cadastrar
+            </a>
+        </div>
+        {% else %}
+        <div class="d-grid">
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-lg">
+                <i class="bi bi-box-arrow-right me-2"></i>Sair
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
 </div>

@@ -1,12 +1,117 @@
 {% extends 'base.html' %}
-{% block title  %} Meu Perfil{% endblock %}
+{% block title %}Meu Perfil{% endblock %}
 
 {% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <!-- Header do Perfil -->
+            <div class="card bg-dark bg-opacity-75 mb-4">
+                <div class="card-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="bi bi-person-circle display-1 text-primary"></i>
+                    </div>
+                    <h2 class="card-title mb-2">{{ user.first_name|default:user.username }}</h2>
+                    <p class="text-muted">@{{ user.username }}</p>
+                    <span class="badge bg-primary">
+                        <i class="bi bi-calendar3 me-1"></i>
+                        Membro desde {{ user.date_joined|date:"F \d\e Y" }}
+                    </span>
+                </div>
+            </div>
 
-<div>
-    <span>Em construção</span>
-    <p>Nome: {{ user.username }}</p>
-    <p>Data de criação da conta: {{ user.date_joined }}</p>
+            <!-- Informações Pessoais -->
+            <div class="card bg-dark bg-opacity-75 mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-info-circle me-2"></i>Informações Pessoais
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <strong class="text-primary">Nome de Usuário:</strong>
+                            <p class="mb-0">{{ user.username }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong class="text-primary">Email:</strong>
+                            <p class="mb-0">{{ user.email|default:"Não informado" }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong class="text-primary">Nome Completo:</strong>
+                            <p class="mb-0">
+                                {% if user.first_name or user.last_name %}
+                                    {{ user.first_name }} {{ user.last_name }}
+                                {% else %}
+                                    Não informado
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong class="text-primary">Status:</strong>
+                            <span class="badge bg-success">
+                                <i class="bi bi-check-circle me-1"></i>Ativo
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estatísticas do Usuário -->
+            <div class="card bg-dark bg-opacity-75 mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-graph-up me-2"></i>Suas Contribuições
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="border border-secondary rounded p-3">
+                                <i class="bi bi-exclamation-triangle-fill text-warning display-6"></i>
+                                <h5 class="mt-2">{{ user.robberies.count }}</h5>
+                                <p class="text-muted mb-0">Relatos Enviados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Últimos Relatos -->
+            {% if user.robberies.exists %}
+            <div class="card bg-dark bg-opacity-75 mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-clock-history me-2"></i>Últimos Relatos
+                    </h4>
+                    <a href="{% url 'add' %}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-circle me-1"></i>Novo Relato
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% for robbery in user.robberies.all|slice:":5" %}
+                    <div class="d-flex align-items-center justify-content-between border-bottom border-secondary py-2">
+                        <div>
+                            <strong>{{ robbery.neighborhood.name }}</strong>
+                            <small class="text-muted d-block">
+                                {{ robbery.street }}, {{ robbery.number }}
+                            </small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">{{ robbery.date|date:"d/m/Y" }}</small>
+                            {% if robbery.is_valid %}
+                                <span class="badge bg-success">Validado</span>
+                            {% else %}
+                                <span class="badge bg-warning">Pendente</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
 </div>
-
 {% endblock %}
