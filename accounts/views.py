@@ -30,7 +30,13 @@ def login(request):
     else:
         form = LoginForms()
 
-    return render(request, 'accounts/login.html', {'form': form, 'in_login_or_signup': True})
+    context = {
+        'form': form,
+        'in_login_or_signup': True,
+        'title': 'Login de Usuário'
+    }
+
+    return render(request, 'accounts/login.html', context)
 
 
 def signup(request):
@@ -60,10 +66,30 @@ def signup(request):
     else:
         form = SignupForms()
     
-    return render(request, 'accounts/signup.html', {'form': form, 'in_login_or_signup': True})
+    context = {
+        'form': form,
+        'in_login_or_signup': True,
+        'title': 'Cadastro de Usuário'
+    }
+
+    return render(request, 'accounts/signup.html', context)
 
 
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Logout realizado com sucesso!')
     return redirect('home')
+
+
+def profile(request):
+    if request.user.is_authenticated:
+
+        context = {
+            'user': request.user,
+            'title': 'Perfil de Usuário'
+        }
+
+        return render(request, 'accounts/profile.html', context)
+    else:
+        messages.warning(request, 'Você precisa estar logado para acessar o perfil.')
+        return redirect('login')

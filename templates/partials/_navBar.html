@@ -5,15 +5,19 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto d-flex" style="--bs-scroll-height: 200px;">
+    
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
               </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'add' %}">Adicionar Assalto</a>
               </li>
+              
               <li class="nav-item">
                 <a class="nav-link" aria-disabled="true" href="{% url 'stats' %}">Estatísticas</a>
               </li>
+
               {% if not in_login_or_signup %}
               <li class="nav-item "> {% include 'partials/_userBtn.html' %}</li>
               {% endif %}

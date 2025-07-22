@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title  %} Meu Perfil{% endblock %}
+
+{% block content %}
+
+<div>
+    <span>Em construção</span>
+    <p>Nome: {{ user.username }}</p>
+    <p>Data de criação da conta: {{ user.date_joined }}</p>
+</div>
+
+{% endblock %}

@@ -6,20 +6,24 @@
                 <i class="bi bi-check-circle-fill me-2"></i>{{ message }}
             </div>
         {% elif message.tags == 'error' %}
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger alert-dismissible" role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% elif message.tags == 'warning' %}
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning alert-dismissible" role="alert">
                 <i class="bi bi-exclamation-circle-fill me-2"></i>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% elif message.tags == 'info' %}
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info alert-dismissible" role="alert">
                 <i class="bi bi-info-circle-fill me-2"></i>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% else %}
-            <div class="alert alert-primary" role="alert">
+            <div class="alert alert-primary alert-dismissible" role="alert">
                 <i class="bi bi-bell-fill me-2"></i>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
     {% endfor %}
