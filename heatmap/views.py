@@ -85,6 +85,12 @@ def data_by_year(request, year):
         data.append({
             'Latitude': str(robbery.latitude),
             'Longitude': str(robbery.longitude),
+            'Data': str(robbery.date),
+            'Hora': str(robbery.time),
+            'Rua': robbery.street,
+            'Numero': robbery.number,
+            'Bairro': robbery.neighborhood.name,
+            'Descricao': robbery.description,
         })
 
     response = JsonResponse(data, safe=False)
