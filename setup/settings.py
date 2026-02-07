@@ -28,9 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'heatmap.apps.HeatmapConfig',
-    'accounts.apps.AccountsConfig',
-    'stats',
+    'apps.heatmap.apps.HeatmapConfig',
+    'apps.accounts.apps.AccountsConfig',
+    'apps.stats',
 ]
 
 MIDDLEWARE = [
