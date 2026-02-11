@@ -4,6 +4,14 @@
 
 {% block content %}
 <div class="container w-50 mt-5 mb-3 mx-auto">
+
+    <div>
+        <p class="alert alert-info">
+            A API utilizada para converter a localização em coordenadas geográficas é gratuita e pode cometer erros, estamos trabalhando para que nesses casos seja possivel corrigir a localização manualmente. 
+        </p>
+    </div>
+
+
     <form action="{% url 'add' %}" method="POST">
         {% csrf_token %}
         {% for field in form.visible_fields %}
