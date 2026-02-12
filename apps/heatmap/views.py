@@ -5,7 +5,6 @@ from .geocode.geocode import geocode_address
 from django.contrib import messages
 from .forms import RobberyForm
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .utils import is_owner_or_staff
 
 
 def ping(request): # Para o cronjob fazer request em manter o projeto 'acordado' no render.    
