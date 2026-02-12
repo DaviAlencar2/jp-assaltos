@@ -28,7 +28,8 @@ class RobberyForm(forms.Form):
             attrs={'class': 'form-control', 'placeholder': 'Número'}
         ),
         label="Número",
-        required=True,
+        required=False,
+        help_text="Deixe em branco se não souber ou se for um local sem número específico."
     )
     neighborhood = forms.ModelChoiceField(
         queryset=Neighborhood.objects.all(),

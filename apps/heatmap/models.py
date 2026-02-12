@@ -28,7 +28,7 @@ class Robbery(models.Model):
     time = models.TimeField()
     description = models.TextField(blank=True, null=True)
     street = models.CharField(max_length=255, blank=True, null=False)
-    number = models.CharField(max_length=255, blank=True, null=False)
+    number = models.CharField(max_length=255, blank=True, null=True)
     latitude = models.CharField(max_length=255, blank=True, null=False)
     longitude = models.CharField(max_length=255, blank=True, null=False)
     type = models.CharField(max_length=1,blank=False, null=False, choices=TYPES, default="a")

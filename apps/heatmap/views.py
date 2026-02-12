@@ -4,7 +4,8 @@ from .models import Robbery
 from .geocode.geocode import geocode_address
 from django.contrib import messages
 from .forms import RobberyForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .utils import is_owner_or_staff
 
 
 def ping(request): # Para o cronjob fazer request em manter o projeto 'acordado' no render.    
@@ -38,7 +39,7 @@ def add(request):
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
             street = form.cleaned_data['street']
-            number = form.cleaned_data['number']
+            number = form.cleaned_data['number'] if form.cleaned_data['number'] else None
             neighborhood = form.cleaned_data['neighborhood']
             description = form.cleaned_data['description']
             location = f"{street}, {number} - {neighborhood.name}"
