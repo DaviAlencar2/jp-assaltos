@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 document.addEventListener('DOMContentLoaded', function() {
-    updateMap('2025'); // Deixar 2025 como padrao
+    updateMap('2026'); // Deixar 2025 como padrao
 });
 
 function updateButtonText(year) {
