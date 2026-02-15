@@ -4,8 +4,10 @@ from .models import Robbery
 from .geocode.geocode import geocode_address
 from django.contrib import messages
 from .forms import RobberyForm
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from datetime import date
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 def ping(request): # Para o cronjob fazer request em manter o projeto 'acordado' no render.    

@@ -89,27 +89,48 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    {% for robbery in user.robberies.all|slice:":5" %}
-                    <div class="d-flex align-items-center justify-content-between border-bottom border-secondary py-2">
-                        <div>
-                            <strong>{{ robbery.neighborhood.name }}</strong>
-                            <small class="text-muted d-block">
-                                {{ robbery.street }}, {{ robbery.number }}
-                            </small>
+                    <div class="list-group list-group-flush">
+                        {% for robbery in user.robberies.all|slice:":5" %}
+                        <div class="list-group-item bg-transparent border-secondary mb-2 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-md-5 mb-2 mb-md-0">
+                                    <div>
+                                        <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                                        <strong>{{ robbery.neighborhood.name }}</strong>
+                                        <small class="text-muted d-block ms-4">
+                                            {{ robbery.street }}, {{ robbery.number }}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-2 mb-md-0 text-center">
+                                    <small class="text-muted d-block">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        {{ robbery.date|date:"d/m/Y" }}
+                                    </small>
+                                </div>
+                                <div class="col-md-2 mb-2 mb-md-0 text-center">
+                                    {% if robbery.is_valid %}
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-circle me-1"></i>Validado
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="bi bi-hourglass-split me-1"></i>Pendente
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-center text-md-end">
+                                    <a href="{% url 'delete_robbery' robbery.id %}" 
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Tem certeza que deseja excluir este relato?')">
+                                        <i class="bi bi-trash"></i>
+                                        <span class="d-none d-lg-inline ms-1">Excluir</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-end">
-                            <small class="text-muted d-block">{{ robbery.date|date:"d/m/Y" }}</small>
-                            {% if robbery.is_valid %}
-                                <span class="badge bg-success">Validado</span>
-                            {% else %}
-                                <span class="badge bg-warning">Pendente</span>
-                            {% endif %}
-                        </div>
-                        <a href="{% url 'delete_robbery' robbery.id %}" class="btn btn-danger btn-sm ms-3">
-                            <i class="bi bi-trash me-1"></i>Excluir
-                        </a>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
             {% endif %}
