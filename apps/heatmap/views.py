@@ -5,6 +5,7 @@ from .geocode.geocode import geocode_address
 from django.contrib import messages
 from .forms import RobberyForm
 from django.contrib.auth.decorators import login_required, user_passes_test
+from datetime import date
 
 
 def ping(request): # Para o cronjob fazer request em manter o projeto 'acordado' no render.    
@@ -18,11 +19,13 @@ def is_staff(user):
 def home(request):
     years = Robbery.objects.dates('date', 'year')
     years = [year.year for year in years]
-    years.sort(reverse=True) 
+    years.sort(reverse=True)
+    current_year = str(date.today().year)
 
     context = {
         'years': years,
         'title': 'Home',
+        'current_year': current_year,
     }
 
     return render(request, "heatmap/home.html", context)
@@ -95,3 +98,18 @@ def data_by_year(request, year):
 
     response = JsonResponse(data, safe=False)
     return response
+
+
+@login_required(login_url='login')
+def delete_robbery(request, robbery_id):
+    if request.method == "GET":
+        try:
+            robbery = Robbery.objects.get(id=robbery_id)
+            if request.user.is_staff or robbery.user == request.user:
+                robbery.delete()
+                messages.success(request, 'Roubo deletado com sucesso.')
+            else:
+                messages.error(request, 'Você não tem permissão para deletar este roubo.')
+        except Robbery.DoesNotExist:
+            messages.error(request, 'Roubo não encontrado.')
+    return redirect('profile')
